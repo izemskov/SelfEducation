@@ -1,0 +1,26 @@
+CREATE OR REPLACE FUNCTION
+    insert_update_notify()
+RETURNS trigger AS
+$BODY$
+    declare
+        payload JSON;
+    BEGIN
+        payload = json_build_object('oldId', OLD.id, 'newId', NEW.id);
+        perform pg_notify('insert_update_notify', payload::text); 
+        RETURN NULL;
+    END;
+$BODY$
+LANGUAGE plpgsql VOLATILE
+COST 100;
+ALTER FUNCTION insert_update_notify() OWNER TO postgres;
+
+CREATE TRIGGER
+    insert_update_notify
+AFTER 
+    INSERT OR UPDATE
+ON 
+    some_object
+FOR EACH ROW
+EXECUTE PROCEDURE
+    insert_update_notify();
+    
