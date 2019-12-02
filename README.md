@@ -11,3 +11,5 @@ Projects for self education
 **Spring/SpringData/nested-transactions** - This project contains a possible solution to the nested transaction problem in Spring.
 
 **Spring/SpringData/postgres-notifications-listener** - Listen postgres notifications sended by pg_notify()
+
+**Spring/SpringData/bidirectional-relationship** - Bidirectional relationships example
