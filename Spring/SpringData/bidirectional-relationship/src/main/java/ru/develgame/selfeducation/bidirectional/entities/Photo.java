@@ -33,7 +33,7 @@ public class Photo {
             if (author != null) {
                 author.addPhoto(this, false);
             }
-            else if (author == null) {
+            else if (author == null && oldAuthor != null) {
                 oldAuthor.removePhoto(this, false);
             }
         }

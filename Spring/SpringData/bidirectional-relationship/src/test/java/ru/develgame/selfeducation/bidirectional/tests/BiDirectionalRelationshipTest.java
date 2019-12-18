@@ -148,4 +148,39 @@ public class BiDirectionalRelationshipTest {
         allAlbums = albumRepository.findAll();
         Assert.assertTrue(allAlbums.isEmpty());
     }
+
+    @Test
+    public void test5() {
+        Author author = new Author();
+        author.setFirstName("author1");
+        author.setSecondName("author2");
+
+        Photo photo = new Photo();
+        photo.setFilename("filename");
+        photo.setTitle("title");
+        photo.setAuthor(author);
+
+        Assert.assertTrue(author.getPhotos().contains(photo));
+        Assert.assertTrue(photo.getAuthor().equals(author));
+
+        photoRepository.save(photo);
+
+        List<Author> allAuthors = authorRepository.findAll();
+        Assert.assertFalse(allAuthors.isEmpty());
+        Assert.assertEquals(allAuthors.get(0).getFirstName(), "author1");
+        Assert.assertTrue(allAuthors.get(0).getPhotos().contains(photo));
+
+        List<Photo> allPhotos = photoRepository.findAll();
+        Assert.assertFalse(allPhotos.isEmpty());
+        Assert.assertEquals(allPhotos.get(0).getFilename(), "filename");
+
+        photo.setAuthor(null);
+
+        photoRepository.save(photo);
+        allAuthors = authorRepository.findAll();
+        Assert.assertFalse(allAuthors.isEmpty());
+        Assert.assertTrue(allAuthors.get(0).getPhotos().isEmpty());
+
+        photo.setAuthor(null);
+    }
 }
