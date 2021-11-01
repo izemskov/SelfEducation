@@ -23,6 +23,15 @@ public class ServiceAppConfiguration {
     @Bean
     @Primary
     public ServiceInstanceListSupplier serviceInstanceListSupplier() {
+        while (findServiceAppInstancesService.findServiceAppInstances().size() < 3) {
+            try {
+                Thread.sleep(1000);
+            }
+            catch (InterruptedException e) {
+            }
+        }
+
+
         return new DemoServiceInstanceListSuppler("serviceapp", findServiceAppInstancesService.findServiceAppInstances());
     }
 }
