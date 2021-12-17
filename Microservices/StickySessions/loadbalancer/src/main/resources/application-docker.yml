@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: loadbalancer
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eurekaserver:8761/eureka

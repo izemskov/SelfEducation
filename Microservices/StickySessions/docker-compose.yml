@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+  eurekaserver:
+    image: eurekaserver
+    ports:
+      - "8761:8761"
+
+  serviceapp1:
+    image: serviceapp
+    links:
+        - eurekaserver
+    depends_on:
+        - eurekaserver
+
+  serviceapp2:
+    image: serviceapp
+    links:
+        - eurekaserver
+    depends_on:
+        - eurekaserver
+
+  serviceapp3:
+    image: serviceapp
+    links:
+        - eurekaserver
+    depends_on:
+        - eurekaserver
+
+  loadbalancer:
+    image: loadbalancer
+    ports:
+      - "8080:8080"
+    links:
+        - eurekaserver
+    depends_on:
+        - eurekaserver
