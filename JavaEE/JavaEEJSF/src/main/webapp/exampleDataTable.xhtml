@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>DataTable Example</title>
+</h:head>
+<h:body>
+    <h:form id="form">
+        <p:dataTable var="sc2Unit" value="#{exampleDataTableBean.lazyModel}" paginator="true" rows="10"
+                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                     rowsPerPageTemplate="5,10,15" selectionMode="single"
+                     selection="#{exampleDataTableBean.selectedSC2Unit}"
+                     id="sc2UnitTable">
+
+            <p:column headerText="Name" sortBy="#{sc2Unit.name}" filterBy="#{sc2Unit.name}">
+                <h:outputText value="#{sc2Unit.name}"/>
+            </p:column>
+            <p:column headerText="Atack" sortBy="#{sc2Unit.attack}" filterBy="#{sc2Unit.attack}">
+                <h:outputText value="#{sc2Unit.attack}"/>
+            </p:column>
+            <p:column headerText="Defense" sortBy="#{sc2Unit.defense}" filterBy="#{sc2Unit.defense}">
+                <h:outputText value="#{sc2Unit.defense}"/>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+</html>
