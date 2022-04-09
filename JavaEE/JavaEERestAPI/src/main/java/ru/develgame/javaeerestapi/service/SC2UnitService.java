@@ -20,10 +20,6 @@ public class SC2UnitService {
         sc2UnitList.add(zerling);
     }
 
-    public SC2Unit getSC2Unit() {
-        return sc2UnitList.get(0);
-    }
-
     public List<SC2Unit> getSC2Units() {
         return new ArrayList<>(sc2UnitList);
     }
