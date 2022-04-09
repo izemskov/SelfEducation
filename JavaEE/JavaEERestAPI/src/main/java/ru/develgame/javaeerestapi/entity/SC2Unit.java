@@ -1,0 +1,60 @@
+package ru.develgame.javaeerestapi.entity;
+
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Objects;
+
+/**
+ * @author Ilya Zemskov
+ */
+@XmlRootElement
+public class SC2Unit {
+    private Long id;
+    private String name;
+    private Double attack;
+
+    public SC2Unit() {
+    }
+
+    public SC2Unit(Long id, String name, Double attack) {
+        this.id = id;
+        this.name = name;
+        this.attack = attack;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getAttack() {
+        return attack;
+    }
+
+    public void setAttack(Double attack) {
+        this.attack = attack;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SC2Unit sc2Unit = (SC2Unit) o;
+        return Objects.equals(id, sc2Unit.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+}
