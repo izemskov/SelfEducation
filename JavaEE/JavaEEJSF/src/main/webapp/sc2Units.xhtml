@@ -11,19 +11,20 @@
 </h:head>
 <h:body>
     <h:form id="form">
-        <p:dataTable var="sc2Unit" value="#{exampleDataTableBean.lazyModel}" paginator="true" rows="10"
+        <p:dataTable var="sc2Unit" value="#{sc2UnitsBean.lazyModel}"
+                     paginator="true" rows="10"
                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                      rowsPerPageTemplate="5,10,15" selectionMode="single"
-                     selection="#{exampleDataTableBean.selectedSC2Unit}"
+                     selection="#{sc2UnitsBean.selectedSC2Unit}"
                      id="sc2UnitTable">
 
-            <p:column headerText="Name" sortBy="#{sc2Unit.name}" filterBy="#{sc2Unit.name}">
+            <p:column headerText="Name" sortBy="#{sc2Unit.name}">
                 <h:outputText value="#{sc2Unit.name}"/>
             </p:column>
-            <p:column headerText="Atack" sortBy="#{sc2Unit.attack}" filterBy="#{sc2Unit.attack}">
+            <p:column headerText="Atack" sortBy="#{sc2Unit.attack}">
                 <h:outputText value="#{sc2Unit.attack}"/>
             </p:column>
-            <p:column headerText="Defense" sortBy="#{sc2Unit.defense}" filterBy="#{sc2Unit.defense}">
+            <p:column headerText="Defense" sortBy="#{sc2Unit.defense}">
                 <h:outputText value="#{sc2Unit.defense}"/>
             </p:column>
         </p:dataTable>

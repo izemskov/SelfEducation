@@ -11,14 +11,16 @@ public class SC2Unit {
     private Long id;
     private String name;
     private Double attack;
+    private Double defense;
 
     public SC2Unit() {
     }
 
-    public SC2Unit(Long id, String name, Double attack) {
+    public SC2Unit(Long id, String name, Double attack, Double defense) {
         this.id = id;
         this.name = name;
         this.attack = attack;
+        this.defense = defense;
     }
 
     public Long getId() {
@@ -43,6 +45,14 @@ public class SC2Unit {
 
     public void setAttack(Double attack) {
         this.attack = attack;
+    }
+
+    public Double getDefense() {
+        return defense;
+    }
+
+    public void setDefense(Double defense) {
+        this.defense = defense;
     }
 
     @Override
