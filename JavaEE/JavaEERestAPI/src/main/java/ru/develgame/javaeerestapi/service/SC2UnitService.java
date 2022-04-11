@@ -16,7 +16,7 @@ public class SC2UnitService {
 
     @PostConstruct
     public void init() {
-        SC2Unit zerling = new SC2Unit(1L, "Zerling", 1.0d);
+        SC2Unit zerling = new SC2Unit(1L, "Zerling", 1.0d, 1.0d);
         sc2UnitList.add(zerling);
     }
 

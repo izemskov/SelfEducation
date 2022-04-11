@@ -14,9 +14,9 @@ import java.io.Serializable;
 /**
  * @author Ilya Zemskov
  */
-@Named
+@Named("sc2UnitsBean")
 @SessionScoped
-public class ExampleDataTableBean implements Serializable {
+public class SC2UnitsBean implements Serializable {
     private LazyDataModel<SC2Unit> lazyModel;
 
     private SC2Unit selectedSC2Unit;

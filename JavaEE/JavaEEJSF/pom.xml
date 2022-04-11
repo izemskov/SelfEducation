@@ -17,6 +17,7 @@
         <failOnMissingWebXml>false</failOnMissingWebXml>
         <jakartaee>8.0</jakartaee>
         <primefaces-version>11.0.0</primefaces-version>
+        <jersey-client-version>2.26</jersey-client-version>
     </properties>
 
     <repositories>
@@ -59,6 +60,18 @@
             <groupId>org.primefaces.themes</groupId>
             <artifactId>all-themes</artifactId>
             <version>1.0.10</version>
+        </dependency>
+
+        <!--Jersey RESTApi client-->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>${jersey-client-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-common</artifactId>
+            <version>${jersey-client-version}</version>
         </dependency>
     </dependencies>
 
