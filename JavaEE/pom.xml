@@ -9,6 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>JavaEECommon</module>
         <module>JavaEERestAPI</module>
         <module>JavaEEJSF</module>
     </modules>

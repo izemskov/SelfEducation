@@ -1,6 +1,6 @@
 package ru.develgame.javaeerestapi.service;
 
-import ru.develgame.javaeerestapi.entity.SC2Unit;
+import ru.develgame.javaeecommon.entity.SC2Unit;
 
 import javax.annotation.Resource;
 import javax.inject.Named;
@@ -37,8 +37,7 @@ public class SC2UnitService {
                 }
             }
         } catch (SQLException e) {
-        }
-        finally {
+        } finally {
             if (connection != null) {
                 try {
                     connection.close();
@@ -49,5 +48,34 @@ public class SC2UnitService {
         }
 
         return sc2UnitList;
+    }
+
+    public boolean createSC2Unit(SC2Unit sc2Unit, StringBuilder err) {
+        Connection connection = null;
+        try {
+            connection = dataSource.getConnection();
+
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "INSERT INTO sc2units(id, name, attack, defense) VALUES ((SELECT nextval('sc2units_sequence')),?,?,?)"))
+            {
+                statement.setString(1, sc2Unit.getName());
+                statement.setDouble(2, sc2Unit.getAttack());
+                statement.setDouble(3, sc2Unit.getDefense());
+                statement.executeUpdate();
+            }
+        } catch (SQLException e) {
+            err.append(e.getMessage());
+            return false;
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                }
+                catch (SQLException e) {
+                }
+            }
+        }
+
+        return true;
     }
 }
