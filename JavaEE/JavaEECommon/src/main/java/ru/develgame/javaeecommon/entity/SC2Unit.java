@@ -1,4 +1,4 @@
-package ru.develgame.javaeerestapi.entity;
+package ru.develgame.javaeecommon.entity;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;

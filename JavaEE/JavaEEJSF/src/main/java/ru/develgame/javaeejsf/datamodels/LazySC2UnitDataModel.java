@@ -3,7 +3,7 @@ package ru.develgame.javaeejsf.datamodels;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
-import ru.develgame.javaeejsf.entity.SC2Unit;
+import ru.develgame.javaeecommon.entity.SC2Unit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,21 +12,16 @@ import java.util.Map;
 /**
  * @author Ilya Zemskov
  */
-public class LazySC2UnitDataModel extends LazyDataModel<SC2Unit> {
-    private List<SC2Unit> data;
+public abstract class LazySC2UnitDataModel extends LazyDataModel<SC2Unit> {
+    protected List<SC2Unit> data = new ArrayList<>();
 
     public LazySC2UnitDataModel(List<SC2Unit> data) {
-        this.data = new ArrayList<>(data);
+        this.data.addAll(data);
     }
 
     @Override
     public int count(Map<String, FilterMeta> map) {
         return data.size();
-    }
-
-    @Override
-    public List<SC2Unit> load(int offset, int pageSize, Map<String, SortMeta> sortBy, Map<String, FilterMeta> filterBy) {
-        return new ArrayList<>(data);
     }
 
     @Override

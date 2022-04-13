@@ -73,6 +73,12 @@
             <artifactId>jersey-common</artifactId>
             <version>${jersey-client-version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>ru.develgame</groupId>
+            <artifactId>javaeecommon</artifactId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

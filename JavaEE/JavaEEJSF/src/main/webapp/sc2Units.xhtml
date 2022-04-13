@@ -8,26 +8,67 @@
       xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>DataTable Example</title>
+
+    <style type="text/css">
+        .ui-panelgrid.showcase-text-align-center .ui-grid-responsive .ui-panelgrid-cell {
+            text-align: center;
+        }
+
+        .customPanelGrid .ui-panelgrid-content {
+            align-items: center;
+        }
+    </style>
+    <h:outputStylesheet name="css/primeflex2.css" library="showcase"/>
+    <h:outputStylesheet name="css/primeflex3.css" library="showcase"/>
+    <h:outputStylesheet name="css/layout.css" library="showcase"/>
 </h:head>
 <h:body>
-    <h:form id="form">
-        <p:dataTable var="sc2Unit" value="#{sc2UnitsBean.lazyModel}"
-                     paginator="true" rows="10"
-                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                     rowsPerPageTemplate="5,10,15" selectionMode="single"
-                     selection="#{sc2UnitsBean.selectedSC2Unit}"
-                     id="sc2UnitTable">
+    <div class="layout-content">
+        <div class="content-section implementation">
+            <h:form id="form">
+                <div class="card">
+                    <p:dataTable var="sc2Unit" value="#{sc2UnitsBean.lazyModel}"
+                                 paginator="true" rows="10"
+                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 rowsPerPageTemplate="5,10,15" selectionMode="single"
+                                 selection="#{sc2UnitsBean.selectedSC2Unit}"
+                                 id="sc2UnitTable">
 
-            <p:column headerText="Name" sortBy="#{sc2Unit.name}">
-                <h:outputText value="#{sc2Unit.name}"/>
-            </p:column>
-            <p:column headerText="Atack" sortBy="#{sc2Unit.attack}">
-                <h:outputText value="#{sc2Unit.attack}"/>
-            </p:column>
-            <p:column headerText="Defense" sortBy="#{sc2Unit.defense}">
-                <h:outputText value="#{sc2Unit.defense}"/>
-            </p:column>
-        </p:dataTable>
-    </h:form>
+                        <p:column headerText="Name" sortBy="#{sc2Unit.name}">
+                            <h:outputText value="#{sc2Unit.name}"/>
+                        </p:column>
+                        <p:column headerText="Atack" sortBy="#{sc2Unit.attack}">
+                            <h:outputText value="#{sc2Unit.attack}"/>
+                        </p:column>
+                        <p:column headerText="Defense" sortBy="#{sc2Unit.defense}">
+                            <h:outputText value="#{sc2Unit.defense}"/>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+
+            <h:form>
+                <div class="card">
+                    <h5>Add (edit) unit</h5>
+                    <p:panelGrid columns="4" layout="flex"
+                                 columnClasses="p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4, p-col-12 p-md-3 p-xl-2, p-col-12 p-md-9 p-xl-4"
+                                 styleClass="customPanelGrid" contentStyleClass="ui-fluid">
+                        <p:outputLabel for="nameInput" value="Name"/>
+                        <p:inputText id="nameInput" value="#{sc2UnitsBean.name}"/>
+
+                        <p:outputLabel for="attackInput" value="Attack"/>
+                        <p:inputText id="attackInput" value="#{sc2UnitsBean.attack}"/>
+
+                        <p:outputLabel for="defenseInput" value="Defense"/>
+                        <p:inputText id="defenseInput" value="#{sc2UnitsBean.defense}"/>
+
+                        <p:commandButton id="submitBtn" value="Submit" action="#{sc2UnitsBean.save}"
+                                         update="@form"/>
+                        <p:messages id="msgs"/>
+                    </p:panelGrid>
+                </div>
+            </h:form>
+        </div>
+    </div>
 </h:body>
 </html>
