@@ -8,6 +8,7 @@ import ru.develgame.javaeejsf.datamodels.LazySC2UnitDataModel;
 import ru.develgame.javaeejsf.service.SC2UnitService;
 import ru.develgame.javaeesoap.client.SC2WebService;
 import ru.develgame.javaeesoap.client.SC2WebServiceService;
+import ru.develgame.javaeesoap.client.Sc2Unit;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -20,6 +21,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Ilya Zemskov
@@ -73,19 +75,36 @@ public class SC2UnitsBean implements Serializable {
     }
 
     public void compare() {
-        /*EmployeeService_Service employeeService_Service
-          = new EmployeeService_Service(url);
-        EmployeeService employeeServiceProxy
-          = employeeService_Service.getEmployeeServiceImplPort();
+        if (selectedSC2Unit.size() < 2) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage("Select two units"));
+            return;
+        }
 
-        List<Employee> allEmployees
-          = employeeServiceProxy.getAllEmployees();
-        * */
+        List<Sc2Unit> soapSC2Units = selectedSC2Unit.stream().limit(2).map(t -> {
+            Sc2Unit sc2Unit = new Sc2Unit();
+            sc2Unit.setAttack(t.getAttack());
+            sc2Unit.setDefense(t.getDefense());
+            sc2Unit.setId(t.getId());
+            sc2Unit.setName(t.getName());
+            return sc2Unit;
+        }).collect(Collectors.toList());
 
         SC2WebServiceService sc2WebServiceService = new SC2WebServiceService();
         SC2WebService sc2WebServiceProxy = sc2WebServiceService.getSC2WebServicePort();
-        int sum = sc2WebServiceProxy.sum(3, 5);
-        System.out.println(sum);
+        int res = sc2WebServiceProxy.fight(soapSC2Units.get(0), soapSC2Units.get(1));
+        if (res > 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(soapSC2Units.get(0).getName() + " win"));
+        }
+        else if (res < 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(soapSC2Units.get(1).getName() + " win"));
+        }
+        else {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage("Units equals"));
+        }
     }
 
     public LazyDataModel<SC2Unit> getLazyModel() {
