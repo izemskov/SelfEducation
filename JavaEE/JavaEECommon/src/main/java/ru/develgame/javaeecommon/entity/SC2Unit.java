@@ -7,7 +7,7 @@ import java.util.Objects;
  * @author Ilya Zemskov
  */
 @XmlRootElement
-public class SC2Unit {
+public class SC2Unit implements Comparable<SC2Unit> {
     private Long id;
     private String name;
     private Double attack;
@@ -66,5 +66,11 @@ public class SC2Unit {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public int compareTo(SC2Unit o) {
+        return Double.compare(this.getDefense() - o.getAttack(),
+                o.getDefense() - this.getAttack());
     }
 }

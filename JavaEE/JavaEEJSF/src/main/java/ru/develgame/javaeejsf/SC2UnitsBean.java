@@ -6,6 +6,8 @@ import org.primefaces.model.SortMeta;
 import ru.develgame.javaeecommon.entity.SC2Unit;
 import ru.develgame.javaeejsf.datamodels.LazySC2UnitDataModel;
 import ru.develgame.javaeejsf.service.SC2UnitService;
+import ru.develgame.javaeesoap.client.SC2WebService;
+import ru.develgame.javaeesoap.client.SC2WebServiceService;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -15,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.core.Response;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +44,7 @@ public class SC2UnitsBean implements Serializable {
         };
     }
 
-    private SC2Unit selectedSC2Unit;
+    private List<SC2Unit> selectedSC2Unit = new ArrayList<>();
 
     private String name;
     private String attack;
@@ -69,12 +72,32 @@ public class SC2UnitsBean implements Serializable {
         }
     }
 
+    public void compare() {
+        /*EmployeeService_Service employeeService_Service
+          = new EmployeeService_Service(url);
+        EmployeeService employeeServiceProxy
+          = employeeService_Service.getEmployeeServiceImplPort();
+
+        List<Employee> allEmployees
+          = employeeServiceProxy.getAllEmployees();
+        * */
+
+        SC2WebServiceService sc2WebServiceService = new SC2WebServiceService();
+        SC2WebService sc2WebServiceProxy = sc2WebServiceService.getSC2WebServicePort();
+        int sum = sc2WebServiceProxy.sum(3, 5);
+        System.out.println(sum);
+    }
+
     public LazyDataModel<SC2Unit> getLazyModel() {
         return lazyModel;
     }
 
-    public SC2Unit getSelectedSC2Unit() {
+    public List<SC2Unit> getSelectedSC2Unit() {
         return selectedSC2Unit;
+    }
+
+    public void setSelectedSC2Unit(List<SC2Unit> selectedSC2Unit) {
+        this.selectedSC2Unit = selectedSC2Unit;
     }
 
     public String getName() {
