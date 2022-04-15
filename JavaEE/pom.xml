@@ -11,6 +11,7 @@
     <modules>
         <module>JavaEECommon</module>
         <module>JavaEERestAPI</module>
+        <module>JavaEESOAP</module>
         <module>JavaEEJSF</module>
     </modules>
 </project>

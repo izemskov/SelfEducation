@@ -28,9 +28,11 @@
             <h:form id="form">
                 <div class="card">
                     <p:dataTable var="sc2Unit" value="#{sc2UnitsBean.lazyModel}"
-                                 paginator="true" rows="10"
+                                 paginator="false" rows="10"
                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-                                 rowsPerPageTemplate="5,10,15" selectionMode="single"
+                                 rowsPerPageTemplate="5,10,15"
+                                 selectionMode="multiple"
+                                 lazy="true"
                                  selection="#{sc2UnitsBean.selectedSC2Unit}"
                                  id="sc2UnitTable">
 
@@ -44,6 +46,8 @@
                             <h:outputText value="#{sc2Unit.defense}"/>
                         </p:column>
                     </p:dataTable>
+                    <p:commandButton id="compareBtn" value="Compare" action="#{sc2UnitsBean.compare}"
+                                     update="@form"/>
                 </div>
             </h:form>
 
@@ -63,7 +67,7 @@
                         <p:inputText id="defenseInput" value="#{sc2UnitsBean.defense}"/>
 
                         <p:commandButton id="submitBtn" value="Submit" action="#{sc2UnitsBean.save}"
-                                         update="@form"/>
+                                         update="@form" oncomplete="PF('sc2UnitTable').filter();"/>
                         <p:messages id="msgs"/>
                     </p:panelGrid>
                 </div>
