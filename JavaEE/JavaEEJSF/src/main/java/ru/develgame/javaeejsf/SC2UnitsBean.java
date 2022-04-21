@@ -3,6 +3,7 @@ package ru.develgame.javaeejsf;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortMeta;
+import org.primefaces.model.file.UploadedFile;
 import ru.develgame.javaeecommon.entity.SC2Unit;
 import ru.develgame.javaeejsf.datamodels.LazySC2UnitDataModel;
 import ru.develgame.javaeejsf.service.SC2UnitService;
@@ -34,6 +35,8 @@ public class SC2UnitsBean implements Serializable {
 
     private LazyDataModel<SC2Unit> lazyModel;
 
+    private UploadedFile file;
+
     @PostConstruct
     public void init() {
         lazyModel = new LazySC2UnitDataModel(sc2UnitService.getSc2UnitList()) {
@@ -63,15 +66,23 @@ public class SC2UnitsBean implements Serializable {
         double attackD = Double.parseDouble(attack);
         double defenseD = Double.parseDouble(defense);
 
+        if (file != null) {
+            file.getContent();
+        }
+
         Response res = sc2UnitService.createSc2Unit(new SC2Unit(1L, name, attackD, defenseD));
         if (res.getStatus() == Response.Status.CREATED.getStatusCode()) {
-            FacesContext.getCurrentInstance().addMessage(null,
+            FacesContext.getCurrentInstance().addMessage("msgs",
                     new FacesMessage(name + " created successfully"));
         }
         else {
-            FacesContext.getCurrentInstance().addMessage(null,
+            FacesContext.getCurrentInstance().addMessage("msgs",
                     new FacesMessage("Error: " + res.getEntity()));
         }
+
+        name = null;
+        attack = null;
+        defense = null;
     }
 
     public void compare() {
@@ -141,5 +152,13 @@ public class SC2UnitsBean implements Serializable {
 
     public void setDefense(String defense) {
         this.defense = defense;
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
     }
 }
