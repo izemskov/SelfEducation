@@ -48,11 +48,9 @@
                     </p:dataTable>
                     <p:commandButton id="compareBtn" value="Compare" action="#{sc2UnitsBean.compare}"
                                      update="@form"/>
-                    <p:messages id="compareMsgs"/>
+                    <p:messages for="compareMsgs"/>
                 </div>
-            </h:form>
 
-            <h:form>
                 <div class="card">
                     <h5>Add (edit) unit</h5>
                     <p:panelGrid columns="4" layout="flex"
@@ -67,9 +65,12 @@
                         <p:outputLabel for="defenseInput" value="Defense"/>
                         <p:inputText id="defenseInput" value="#{sc2UnitsBean.defense}"/>
 
+                        <p:outputLabel for="defenseInput" value="Voice"/>
+                        <p:fileUpload value="#{sc2UnitsBean.file}" mode="simple" skinSimple="true"/>
+
                         <p:commandButton id="submitBtn" value="Submit" action="#{sc2UnitsBean.save}"
                                          update="@form" oncomplete="PF('sc2UnitTable').filter();"/>
-                        <p:messages id="msgs"/>
+                        <p:messages for="msgs"/>
                     </p:panelGrid>
                 </div>
             </h:form>

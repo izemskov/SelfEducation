@@ -31,7 +31,7 @@ public class SC2UnitService {
         List<SC2Unit> sc2Units = client
                 .target(REST_API_ADDRESS)
                 .path(RESOURCES_ADDRESS)
-                .request(MediaType.TEXT_XML)
+                .request(MediaType.APPLICATION_JSON)
                 .get(new GenericType<List<SC2Unit>>() {});
         return sc2Units;
     }
@@ -40,7 +40,7 @@ public class SC2UnitService {
         return client
                 .target(REST_API_ADDRESS)
                 .path(RESOURCES_ADDRESS)
-                .request(MediaType.TEXT_XML)
-                .post(Entity.entity(sc2Unit, MediaType.TEXT_XML));
+                .request(MediaType.APPLICATION_JSON)
+                .post(Entity.entity(sc2Unit, MediaType.APPLICATION_JSON));
     }
 }
