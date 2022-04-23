@@ -62,8 +62,8 @@ class SC2UnitService {
             try {
                 statement = connection?.prepareStatement("INSERT INTO sc2units(id, name, attack, defense) VALUES ((SELECT nextval('sc2units_sequence')),?,?,?)")
                 statement?.setString(1, sc2Unit.name)
-                statement?.setDouble(2, sc2Unit?.attack ?: 0.0)
-                statement?.setDouble(3, sc2Unit?.defense ?: 0.0)
+                statement?.setDouble(2, sc2Unit.attack ?: 0.0)
+                statement?.setDouble(3, sc2Unit.defense ?: 0.0)
                 statement?.executeUpdate();
             }
             finally {

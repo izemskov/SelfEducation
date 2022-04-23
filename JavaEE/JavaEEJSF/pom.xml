@@ -74,6 +74,23 @@
             <version>${jersey-client-version}</version>
         </dependency>
 
+        <!--JCache-->
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <version>3.0.0.Alpha13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsr107.ri</groupId>
+            <artifactId>cache-annotations-ri-cdi</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jsr107.ri</groupId>
+            <artifactId>cache-ri-impl</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <dependency>
             <groupId>ru.develgame</groupId>
             <artifactId>javaeecommon</artifactId>
