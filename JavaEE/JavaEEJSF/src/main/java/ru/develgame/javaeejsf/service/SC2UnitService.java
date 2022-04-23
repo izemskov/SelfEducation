@@ -3,6 +3,10 @@ package ru.develgame.javaeejsf.service;
 import ru.develgame.javaeecommon.entity.SC2Unit;
 
 import javax.annotation.PostConstruct;
+import javax.cache.annotation.CacheDefaults;
+import javax.cache.annotation.CacheRemove;
+import javax.cache.annotation.CacheRemoveAll;
+import javax.cache.annotation.CacheResult;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.ws.rs.client.*;
@@ -16,6 +20,7 @@ import java.util.List;
  */
 @Named
 @ApplicationScoped
+@CacheDefaults(cacheName = "SC2UnitCache")
 public class SC2UnitService {
     private Client client;
 
@@ -27,6 +32,7 @@ public class SC2UnitService {
         client = ClientBuilder.newClient();
     }
 
+    @CacheResult
     public List<SC2Unit> getSc2UnitList() {
         List<SC2Unit> sc2Units = client
                 .target(REST_API_ADDRESS)
@@ -36,6 +42,7 @@ public class SC2UnitService {
         return sc2Units;
     }
 
+    @CacheRemoveAll
     public Response createSc2Unit(SC2Unit sc2Unit) {
         return client
                 .target(REST_API_ADDRESS)

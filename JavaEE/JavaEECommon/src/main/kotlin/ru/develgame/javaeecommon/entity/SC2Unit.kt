@@ -1,5 +1,6 @@
 package ru.develgame.javaeecommon.entity
 
+import java.io.Serializable
 import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
@@ -9,7 +10,7 @@ import javax.persistence.Table
  */
 @Entity
 @Table(name = "sc2units")
-class SC2Unit : Comparable<SC2Unit>
+class SC2Unit : Comparable<SC2Unit>, Serializable
 {
     @Id
     var id: Long? = null
