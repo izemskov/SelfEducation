@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Delayed tasks</title>
+</h:head>
+<h:body>
+    <div>
+        <h:form>
+            <h1>Random value: <h:outputText id="randomValue" value="#{demoAsyncTasks.randomValue}" escape="false"/></h1>
+            <h2><h:outputText id="uuid" value="#{demoAsyncTasks.asyncBean.uuid}" escape="false"/></h2>
+            <p:commandButton value="Refresh" action="#{demoAsyncTasks.showInfo()}"
+                             update="@form:growl @form:randomValue @form:uuid"
+                             ajax="true"/>
+            <p:messages id="growl" showDetail="true" closable="true"/>
+        </h:form>
+        <br/>
+        <h:form>
+            <p:commandButton value="Start async task" action="#{demoAsyncTasks.startAsyncTask()}" ajax="true" update="@form:asyncTasksBlock"/>
+            <h:panelGroup layout="block" id="asyncTasksBlock">
+                <ui:repeat value="#{demoAsyncTasks.asyncTasks}" var="asyncTask" varStatus="varStatus">
+                    <p:panel header="#{asyncTask.uuid}" style="margin-top: 10px;">
+                        <h:outputText escape="false" value="#{demoAsyncTasks.getAsyncTaskInfo(asyncTask)}"/>
+                        <h:panelGroup layout="block" rendered="#{asyncTask.asyncTaskStatus == 'IDLE'}">
+                            <p:commandLink ajax="true" value="Undo" action="#{demoAsyncTasks.undoTask(asyncTask)}" update="@form:asyncTasksBlock"/>
+                        </h:panelGroup>
+                    </p:panel>
+                </ui:repeat>
+                <p:poll interval="2" delay="1000" update="@form:asyncTasksBlock" async="true"/>
+            </h:panelGroup>
+        </h:form>
+    </div>
+</h:body>
+</html>
