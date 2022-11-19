@@ -28,7 +28,7 @@ public abstract class AsyncTask implements Runnable {
     }
 
     protected void setAsyncTaskStatus(AsyncTaskStatus asyncTaskStatus) {
-        this.asyncTaskStatus.compareAndSet(this.asyncTaskStatus.get(), asyncTaskStatus);
+        while (!this.asyncTaskStatus.compareAndSet(this.asyncTaskStatus.get(), asyncTaskStatus)) {}
     }
 
     public int getLeftTicksCount() {
