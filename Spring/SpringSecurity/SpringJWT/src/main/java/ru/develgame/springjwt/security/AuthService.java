@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import ru.develgame.springjwt.domain.JwtRequest;
 import ru.develgame.springjwt.domain.JwtResponse;
 import ru.develgame.springjwt.domain.User;
 import ru.develgame.springjwt.jwt.JwtProvider;
@@ -25,17 +24,13 @@ public class AuthService {
 
     private final Map<String, String> refreshStorage = new HashMap<>();
 
-    public JwtResponse login(@NonNull JwtRequest authRequest) {
-        final User user = userService.getByLogin(authRequest.getLogin())
+    public JwtResponse loginViaOauth2(@NonNull String thirdPartyId) {
+        User user = userService.getByLogin(thirdPartyId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        if (user.getPassword().equals(authRequest.getPassword())) {
-            String accessToken = jwtProvider.generateAccessToken(user);
-            String refreshToken = jwtProvider.generateRefreshToken(user);
-            refreshStorage.put(user.getLogin(), refreshToken);
-            return new JwtResponse(accessToken, refreshToken);
-        } else {
-            throw new RuntimeException("Wrong password");
-        }
+        String accessToken = jwtProvider.generateAccessToken(user);
+        String refreshToken = jwtProvider.generateRefreshToken(user);
+        refreshStorage.put(user.getLogin(), refreshToken);
+        return new JwtResponse(accessToken, refreshToken);
     }
 
     public JwtResponse getAccessToken(@NonNull String refreshToken) {

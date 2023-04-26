@@ -1,0 +1,7 @@
+<zk>
+    <div id="mainView" height="100%" width="100%">
+        <div>
+            With Google: <a href="/oauth2/authorization/google">click here</a>
+        </div>
+    </div>
+</zk>

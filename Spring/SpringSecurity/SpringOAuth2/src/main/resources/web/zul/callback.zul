@@ -1,0 +1,6 @@
+<zk>
+    <div id="mainView" height="100%" width="100%" apply="ru.develgame.springoauth2.composer.CallBack">
+        <div>Callback. JWT access token: </div>
+        <label id="accessToken"/>
+    </div>
+</zk>

@@ -1,5 +1,5 @@
 FROM bellsoft/liberica-openjdk-centos:17
-RUN mkdir /zk
-COPY ./target/zkspringboot-security-demo-0.0.1-SNAPSHOT.jar /zk
-CMD java -jar /zk/zkspringboot-security-demo-0.0.1-SNAPSHOT.jar
-EXPOSE 7777:7777
+RUN mkdir /jwt
+COPY ./target/spring-jwt-1.0.0.jar /jwt
+CMD java -jar /jwt/spring-jwt-1.0.0.jar
+EXPOSE 7778:7778
