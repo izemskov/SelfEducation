@@ -13,5 +13,8 @@
          <f:ajax execute="@form" render="@form" />
       </h:commandButton>
    </h:form>
+   <h:form>
+      <h:commandButton value="throw runtime exception on normal request" action="#{indexBean.throwRuntimeException()}" />
+   </h:form>
 </h:body>
 </html>
