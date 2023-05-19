@@ -28,19 +28,6 @@
         <location>/WEB-INF/errorpages/error500.xhtml</location>
     </error-page>
 
-    <!--<context-param>
-        <param-name>org.omnifaces.EXCEPTION_TYPES_TO_UNWRAP</param-name>
-        <param-value>javax.ejb.EJBException,javax.persistence.RollbackException</param-value>
-    </context-param>
-    <context-param>
-        <param-name>org.omnifaces.EXCEPTION_TYPES_TO_IGNORE_IN_LOGGING</param-name>
-        <param-value>javax.faces.application.ViewExpiredException</param-value>
-    </context-param>-->
-
-    <!--<session-config>
-        <session-timeout>1</session-timeout>
-    </session-config>-->
-
     <mime-mapping>
         <extension>ttf</extension>
         <mime-type>application/octet-stream</mime-type>

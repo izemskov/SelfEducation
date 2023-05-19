@@ -8,13 +8,34 @@
    <title>Exception handling</title>
 </h:head>
 <h:body>
-   <h:form>
-      <h:commandButton value="throw runtime exception on ajax request" action="#{indexBean.throwRuntimeException()}">
-         <f:ajax execute="@form" render="@form" />
-      </h:commandButton>
-   </h:form>
-   <h:form>
-      <h:commandButton value="throw runtime exception on normal request" action="#{indexBean.throwRuntimeException()}" />
-   </h:form>
+   <p>
+      <h:form>
+         <h:commandButton value="throw runtime exception on ajax request" action="#{indexBean.throwRuntimeException()}">
+            <f:ajax execute="@form" render="@form" />
+         </h:commandButton>
+      </h:form>
+   </p>
+
+   <p>
+      <h:form>
+         <h:commandButton value="throw runtime exception on normal request" action="#{indexBean.throwRuntimeException()}" />
+      </h:form>
+   </p>
+
+   <p>
+      <h:form>
+         <h:commandButton value="throw runtime exception during render of ajax request">
+            <f:ajax execute="@form" render="@form" />
+         </h:commandButton>
+         <h:outputText value="#{indexBean.throwRuntimeException()}" rendered="#{component.namingContainer.submitted}" />
+      </h:form>
+   </p>
+
+   <p>
+      <h:form>
+         <h:commandButton value="throw runtime exception during render of normal request" />
+         <h:outputText value="#{indexBean.throwRuntimeException()}" rendered="#{component.namingContainer.submitted}" />
+      </h:form>
+   </p>
 </h:body>
 </html>
