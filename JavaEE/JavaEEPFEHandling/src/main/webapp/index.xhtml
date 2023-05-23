@@ -12,7 +12,12 @@
       <h3 style="margin-top:0">AJAX</h3>
       <p:commandButton action="#{indexBean.throwRuntimeException()}"
                        ajax="true"
-                       value="Throw ViewExpiredException!" />
+                       value="Throw Runtime Exception!" />
+
+      <h3>Non-AJAX</h3>
+      <p:commandButton action="#{indexBean.throwRuntimeException()}"
+                       ajax="false"
+                       value="Throw Runtime Exception!" />
    </h:form>
 </h:body>
 </html>
