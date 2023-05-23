@@ -1,0 +1,9 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h2>Message: #{pfExceptionHandler.message}</h2>
+    <h2>Timestamp: #{pfExceptionHandler.formattedTimestamp}</h2>
+    <h2>StackTrace:</h2><h:outputText value="#{pfExceptionHandler.formattedStackTrace}" escape="false" />
+
+    <p><a href="#{request.contextPath}">Click here for try again</a></p>
+</ui:composition>
