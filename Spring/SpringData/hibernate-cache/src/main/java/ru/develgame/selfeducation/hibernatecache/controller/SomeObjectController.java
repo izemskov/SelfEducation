@@ -8,6 +8,7 @@ import ru.develgame.selfeducation.hibernatecache.dto.SomeObjectRequest;
 import ru.develgame.selfeducation.hibernatecache.entity.SomeObject;
 import ru.develgame.selfeducation.hibernatecache.repository.SomeObjectRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -15,6 +16,13 @@ import java.util.Optional;
 public class SomeObjectController {
     @Autowired
     private SomeObjectRepository someObjectRepository;
+
+    @GetMapping
+    public ResponseEntity<List<SomeObjectDto>> getSomeObjects() {
+        return ResponseEntity.ok(someObjectRepository.findAll().stream()
+                .map(t -> new SomeObjectDto(t.getId(), t.getName()))
+                .toList());
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<SomeObjectDto> getSomeObject(@PathVariable Long id) {
