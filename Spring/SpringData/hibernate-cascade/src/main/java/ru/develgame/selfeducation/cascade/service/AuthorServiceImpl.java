@@ -2,6 +2,7 @@ package ru.develgame.selfeducation.cascade.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.develgame.selfeducation.cascade.dto.AuthorDtoRequest;
 import ru.develgame.selfeducation.cascade.dto.AuthorDtoResponse;
 import ru.develgame.selfeducation.cascade.dto.ValidatedResponseDto;
@@ -61,5 +62,11 @@ public class AuthorServiceImpl implements AuthorService {
         return ValidatedResponseDto.<AuthorDtoResponse>builder()
                 .data(authorMapper.toDto(author))
                 .build();
+    }
+
+    @Override
+    @Transactional
+    public void deleteOne(Long id) {
+        authorRepository.deleteById(id);
     }
 }

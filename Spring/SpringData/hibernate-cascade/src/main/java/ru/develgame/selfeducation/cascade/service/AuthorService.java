@@ -12,4 +12,6 @@ public interface AuthorService {
     ValidatedResponseDto<AuthorDtoResponse> fetchOne(Long id);
 
     ValidatedResponseDto<AuthorDtoResponse> createOne(AuthorDtoRequest authorDtoRequest);
+
+    void deleteOne(Long id);
 }
