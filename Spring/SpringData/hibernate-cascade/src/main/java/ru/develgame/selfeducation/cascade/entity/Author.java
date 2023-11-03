@@ -25,8 +25,8 @@ public class Author {
     private String firstName;
     private String secondName;
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER)
-    private List<Photo> photos = new ArrayList<>();
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Album> albums = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
