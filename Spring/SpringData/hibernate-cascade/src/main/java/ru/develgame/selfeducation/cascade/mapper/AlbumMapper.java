@@ -8,6 +8,7 @@ import ru.develgame.selfeducation.cascade.entity.Album;
 public class AlbumMapper {
     public AlbumDtoResponse toDto(Album album) {
         return AlbumDtoResponse.builder()
+                .id(album.getId())
                 .name(album.getName())
                 .build();
     }

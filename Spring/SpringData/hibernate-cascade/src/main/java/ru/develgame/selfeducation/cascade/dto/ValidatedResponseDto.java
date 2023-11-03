@@ -6,5 +6,6 @@ import java.util.List;
 
 @Builder
 public record ValidatedResponseDto<T>(T data,
-                                      List<String> errors) {
+                                      List<String> errors,
+                                      int status) {
 }

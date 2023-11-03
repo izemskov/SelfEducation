@@ -1,4 +1,7 @@
 package ru.develgame.selfeducation.cascade.dto;
 
-public record AuthorDtoRequest(String firstName, String secondName) {
+import java.util.List;
+
+public record AuthorDtoRequest(String firstName,
+                               String secondName) {
 }

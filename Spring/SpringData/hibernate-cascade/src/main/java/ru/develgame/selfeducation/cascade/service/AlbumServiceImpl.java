@@ -1,6 +1,7 @@
 package ru.develgame.selfeducation.cascade.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.develgame.selfeducation.cascade.dto.AlbumDtoRequest;
@@ -32,6 +33,7 @@ public class AlbumServiceImpl implements AlbumService {
         if (albumDtoRequest.name() == null || albumDtoRequest.name().isBlank()) {
             return ValidatedResponseDto.<AlbumDtoResponse>builder()
                     .errors(List.of("Name cannot be empty"))
+                    .status(HttpStatus.BAD_REQUEST.value())
                     .build();
         }
 
@@ -39,6 +41,7 @@ public class AlbumServiceImpl implements AlbumService {
         if (author.isEmpty()) {
             return ValidatedResponseDto.<AlbumDtoResponse>builder()
                     .errors(List.of(String.format("Author not found by id %d", authorId)))
+                    .status(HttpStatus.NOT_FOUND.value())
                     .build();
         }
 
