@@ -10,6 +10,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -24,6 +26,9 @@ public class Album {
 
     @ManyToOne
     private Author author;
+
+    @OneToMany(mappedBy = "album", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Photo> photos = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

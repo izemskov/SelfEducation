@@ -26,10 +26,7 @@ public class Photo {
     private String filename;
 
     @ManyToOne
-    private Author author;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Album> albums = new ArrayList<>();
+    private Album album;
 
     @Override
     public boolean equals(Object o) {

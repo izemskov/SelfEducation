@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.develgame.selfeducation.cascade.dto.AlbumDtoRequest;
 import ru.develgame.selfeducation.cascade.dto.AlbumDtoResponse;
+import ru.develgame.selfeducation.cascade.dto.AuthorDtoResponse;
 import ru.develgame.selfeducation.cascade.dto.ValidatedResponseDto;
 import ru.develgame.selfeducation.cascade.entity.Album;
 import ru.develgame.selfeducation.cascade.entity.Author;
@@ -26,6 +27,17 @@ public class AlbumServiceImpl implements AlbumService {
 
     @Autowired
     private AlbumMapper albumMapper;
+
+    @Override
+    public ValidatedResponseDto<List<AlbumDtoResponse>> fetchAll(Long authorId) {
+        return authorRepository.findById(authorId)
+                .map(t -> ValidatedResponseDto.<List<AlbumDtoResponse>>builder()
+                        .data(t.getAlbums().stream().map(e -> albumMapper.toDto(e)).toList())
+                        .build())
+                .orElseGet(() -> ValidatedResponseDto.<List<AlbumDtoResponse>>builder()
+                        .errors(List.of(String.format("Author by id %d not found", authorId)))
+                        .build());
+    }
 
     @Override
     @Transactional

@@ -1,6 +1,7 @@
 package ru.develgame.selfeducation.cascade.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,11 @@ public class AlbumController {
 
     @GetMapping
     public ResponseEntity<ValidatedResponseDto<List<AlbumDtoResponse>>> fetchAll(@PathVariable Long authorId) {
-        return null;
+        ValidatedResponseDto<List<AlbumDtoResponse>> response = albumService.fetchAll(authorId);
+        if (response.errors() != null && !response.errors().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
