@@ -7,23 +7,21 @@ import ru.develgame.selfeducation.trisolation.dto.SomeObjectDto;
 import ru.develgame.selfeducation.trisolation.dto.SomeObjectRequest;
 import ru.develgame.selfeducation.trisolation.service.SomeObjectService;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("someObject")
-public class SomeObjectController {
+@RequestMapping("serializable/someObject")
+public class SomeObjectSerializableController {
     @Autowired
-    private SomeObjectService someObjectService;
+    private SomeObjectService someObjectSerializableService;
 
     @PostMapping
     public ResponseEntity<SomeObjectDto> create(@RequestBody SomeObjectRequest someObjectRequest) {
-        return ResponseEntity.ok(someObjectService.create(someObjectRequest));
+        return ResponseEntity.ok(someObjectSerializableService.create(someObjectRequest));
     }
 
     @PutMapping("{someObjectId}")
     public ResponseEntity<SomeObjectDto> edit(@PathVariable Long someObjectId, @RequestBody SomeObjectRequest someObjectRequest) {
         try {
-            return ResponseEntity.ok(someObjectService.edit(someObjectId, someObjectRequest));
+            return ResponseEntity.ok(someObjectSerializableService.edit(someObjectId, someObjectRequest));
         } catch (RuntimeException ex) {
             return ResponseEntity.notFound().build();
         }
@@ -32,7 +30,7 @@ public class SomeObjectController {
     @PostMapping("{someObjectId}/attachment")
     public ResponseEntity<SomeObjectDto> addSubObject(@PathVariable Long someObjectId) {
         try {
-            return ResponseEntity.ok(someObjectService.addAttachment(someObjectId));
+            return ResponseEntity.ok(someObjectSerializableService.addAttachment(someObjectId));
         } catch (RuntimeException ex) {
             return ResponseEntity.notFound().build();
         }
@@ -41,7 +39,7 @@ public class SomeObjectController {
     @GetMapping("{someObjectId}")
     public ResponseEntity<SomeObjectDto> getSomeObject(@PathVariable Long someObjectId) {
         try {
-            return ResponseEntity.ok(someObjectService.getSomeObject(someObjectId));
+            return ResponseEntity.ok(someObjectSerializableService.getSomeObject(someObjectId));
         } catch (RuntimeException ex) {
             return ResponseEntity.notFound().build();
         }

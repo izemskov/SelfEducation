@@ -8,7 +8,9 @@ package ru.develgame.selfeducation.trisolation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.retry.annotation.EnableRetry;
 
+@EnableRetry
 @SpringBootApplication
 public class TransactionIsolationApp {
     public static void main(String[] args) {
