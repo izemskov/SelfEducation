@@ -17,15 +17,14 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class SomeObjectSerializableService extends SomeObjectServiceImpl {
+public class SomeObjectReadCommittedService extends SomeObjectServiceImpl {
     @Autowired
     private SomeObjectRepository someObjectRepository;
 
     @Autowired
     private SubObjectRepository subObjectRepository;
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
-    @Retryable
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public SomeObjectDto edit(Long id, SomeObjectRequest someObjectRequest) {
         SomeObject someObject = someObjectRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Some object not found"));
@@ -41,7 +40,7 @@ public class SomeObjectSerializableService extends SomeObjectServiceImpl {
                         .collect(Collectors.toList()));
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional(isolation = Isolation.READ_COMMITTED)
     public SomeObjectDto addAttachment(Long id) {
         SomeObject someObject = someObjectRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Some object not found"));
