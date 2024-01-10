@@ -7,6 +7,7 @@ import ru.develgame.selfeducation.cascade.dto.AuthorDtoRequest;
 import ru.develgame.selfeducation.cascade.dto.AuthorDtoResponse;
 import ru.develgame.selfeducation.cascade.dto.ValidatedResponseDto;
 import ru.develgame.selfeducation.cascade.entity.Author;
+import ru.develgame.selfeducation.cascade.exception.AuthorNotFoundException;
 import ru.develgame.selfeducation.cascade.mapper.AuthorMapper;
 import ru.develgame.selfeducation.cascade.repository.AuthorRepository;
 
@@ -27,14 +28,9 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public ValidatedResponseDto<AuthorDtoResponse> fetchOne(Long id) {
-        return authorRepository.findById(id)
-                .map(t -> ValidatedResponseDto.<AuthorDtoResponse>builder()
-                        .data(authorMapper.toDto(t))
-                        .build())
-                .orElseGet(() -> ValidatedResponseDto.<AuthorDtoResponse>builder()
-                        .errors(List.of(String.format("Author by id %d not found", id)))
-                        .build());
+    public AuthorDtoResponse fetchOne(Long id) {
+        return authorMapper.toDto(authorRepository.findById(id)
+                .orElseThrow(() -> new AuthorNotFoundException(String.format("Author by id %s not found", id))));
     }
 
     @Override

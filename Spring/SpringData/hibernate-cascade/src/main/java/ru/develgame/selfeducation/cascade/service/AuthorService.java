@@ -9,7 +9,7 @@ import java.util.List;
 public interface AuthorService {
     List<AuthorDtoResponse> fetchAll();
 
-    ValidatedResponseDto<AuthorDtoResponse> fetchOne(Long id);
+    AuthorDtoResponse fetchOne(Long id);
 
     ValidatedResponseDto<AuthorDtoResponse> createOne(AuthorDtoRequest authorDtoRequest);
 

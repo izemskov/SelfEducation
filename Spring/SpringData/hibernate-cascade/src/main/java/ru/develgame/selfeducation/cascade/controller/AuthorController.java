@@ -18,19 +18,13 @@ public class AuthorController {
     private AuthorService authorService;
 
     @GetMapping
-    public ResponseEntity<ValidatedResponseDto<List<AuthorDtoResponse>>> fetchAll() {
-        return ResponseEntity.ok(ValidatedResponseDto.<List<AuthorDtoResponse>>builder()
-                .data(authorService.fetchAll())
-                .build());
+    public ResponseEntity<List<AuthorDtoResponse>> fetchAll() {
+        return ResponseEntity.ok(authorService.fetchAll());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ValidatedResponseDto<AuthorDtoResponse>> fetchOne(@PathVariable Long id) {
-        ValidatedResponseDto<AuthorDtoResponse> responseDto = authorService.fetchOne(id);
-        if (responseDto.errors() != null && !responseDto.errors().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDto);
-        }
-        return ResponseEntity.ok(responseDto);
+    public ResponseEntity<AuthorDtoResponse> fetchOne(@PathVariable Long id) {
+        return ResponseEntity.ok(authorService.fetchOne(id));
     }
 
     @PostMapping
