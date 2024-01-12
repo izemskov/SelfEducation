@@ -30,7 +30,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public AuthorDtoResponse fetchOne(Long id) {
         return authorMapper.toDto(authorRepository.findById(id)
-                .orElseThrow(() -> new AuthorNotFoundException(String.format("Author by id %s not found", id))));
+                .orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id %d not found", id))));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Transactional
     public void deleteOne(Long id) {
         authorRepository.findById(id)
-                .orElseThrow(() -> new AuthorNotFoundException(String.format("Author by id %s not found", id)));
+                .orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id %d not found", id)));
         authorRepository.deleteById(id);
     }
 }

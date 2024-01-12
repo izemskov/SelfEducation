@@ -7,7 +7,9 @@ import ru.develgame.selfeducation.cascade.dto.ValidatedResponseDto;
 import java.util.List;
 
 public interface AlbumService {
-    ValidatedResponseDto<List<AlbumDtoResponse>> fetchAll(Long authorId);
+    List<AlbumDtoResponse> fetchAll(Long authorId);
+
+    AlbumDtoResponse fetchOne(Long authorId, Long albumId);
 
     ValidatedResponseDto<AlbumDtoResponse> createOne(Long authorId, AlbumDtoRequest albumDtoRequest);
 }

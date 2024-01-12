@@ -15,7 +15,6 @@ public class AuthorMapper {
                 .id(author.getId())
                 .firstName(author.getFirstName())
                 .secondName(author.getSecondName())
-                .albums(author.getAlbums().stream().map(t -> albumMapper.toDto(t)).toList())
                 .build();
     }
 }

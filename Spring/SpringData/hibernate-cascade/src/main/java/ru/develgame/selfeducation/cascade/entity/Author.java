@@ -25,7 +25,7 @@ public class Author {
     private String firstName;
     private String secondName;
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Album> albums = new ArrayList<>();
 
     @Override

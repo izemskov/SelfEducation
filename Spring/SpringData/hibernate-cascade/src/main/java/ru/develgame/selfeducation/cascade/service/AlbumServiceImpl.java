@@ -10,6 +10,9 @@ import ru.develgame.selfeducation.cascade.dto.AuthorDtoResponse;
 import ru.develgame.selfeducation.cascade.dto.ValidatedResponseDto;
 import ru.develgame.selfeducation.cascade.entity.Album;
 import ru.develgame.selfeducation.cascade.entity.Author;
+import ru.develgame.selfeducation.cascade.exception.AlbumForbiddenException;
+import ru.develgame.selfeducation.cascade.exception.AlbumNotFoundException;
+import ru.develgame.selfeducation.cascade.exception.AuthorNotFoundException;
 import ru.develgame.selfeducation.cascade.mapper.AlbumMapper;
 import ru.develgame.selfeducation.cascade.repository.AlbumRepository;
 import ru.develgame.selfeducation.cascade.repository.AuthorRepository;
@@ -29,14 +32,25 @@ public class AlbumServiceImpl implements AlbumService {
     private AlbumMapper albumMapper;
 
     @Override
-    public ValidatedResponseDto<List<AlbumDtoResponse>> fetchAll(Long authorId) {
+    @Transactional
+    public List<AlbumDtoResponse> fetchAll(Long authorId) {
         return authorRepository.findById(authorId)
-                .map(t -> ValidatedResponseDto.<List<AlbumDtoResponse>>builder()
-                        .data(t.getAlbums().stream().map(e -> albumMapper.toDto(e)).toList())
-                        .build())
-                .orElseGet(() -> ValidatedResponseDto.<List<AlbumDtoResponse>>builder()
-                        .errors(List.of(String.format("Author by id %d not found", authorId)))
-                        .build());
+                .orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id %d not found", authorId)))
+                .getAlbums().stream().map(t -> albumMapper.toDto(t)).toList();
+    }
+
+    @Override
+    public AlbumDtoResponse fetchOne(Long authorId, Long albumId) {
+        authorRepository.findById(authorId)
+                .orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id %d not found", authorId)));
+
+        Album album = albumRepository.findById(albumId).orElseThrow(() -> new AlbumNotFoundException(String.format("Album with id %d not found", albumId)));
+
+        if (album.getAuthor().getId() != authorId) {
+            throw new AlbumForbiddenException(String.format("Album with id %d don't link with author with id %d", albumId, authorId));
+        }
+
+        return albumMapper.toDto(album);
     }
 
     @Override

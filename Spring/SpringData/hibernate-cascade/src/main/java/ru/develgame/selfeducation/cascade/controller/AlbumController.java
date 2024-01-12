@@ -19,12 +19,13 @@ public class AlbumController {
     private AlbumService albumService;
 
     @GetMapping
-    public ResponseEntity<ValidatedResponseDto<List<AlbumDtoResponse>>> fetchAll(@PathVariable Long authorId) {
-        ValidatedResponseDto<List<AlbumDtoResponse>> response = albumService.fetchAll(authorId);
-        if (response.errors() != null && !response.errors().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-        }
-        return ResponseEntity.ok(response);
+    public ResponseEntity<List<AlbumDtoResponse>> fetchAll(@PathVariable Long authorId) {
+        return ResponseEntity.ok(albumService.fetchAll(authorId));
+    }
+
+    @GetMapping("{albumId}")
+    public ResponseEntity<AlbumDtoResponse> fetchOne(@PathVariable Long authorId, @PathVariable Long albumId) {
+        return ResponseEntity.ok(albumService.fetchOne(authorId, albumId));
     }
 
     @PostMapping

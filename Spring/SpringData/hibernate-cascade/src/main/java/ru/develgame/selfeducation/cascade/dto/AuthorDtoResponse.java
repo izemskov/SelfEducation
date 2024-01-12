@@ -7,6 +7,5 @@ import java.util.List;
 @Builder
 public record AuthorDtoResponse(Long id,
                                 String firstName,
-                                String secondName,
-                                List<AlbumDtoResponse> albums) {
+                                String secondName) {
 }
