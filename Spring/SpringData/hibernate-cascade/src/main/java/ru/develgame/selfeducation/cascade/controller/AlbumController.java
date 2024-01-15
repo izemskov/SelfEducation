@@ -33,8 +33,14 @@ public class AlbumController {
                                                                             @RequestBody AlbumDtoRequest albumDtoRequest) {
         ValidatedResponseDto<AlbumDtoResponse> response = albumService.createOne(authorId, albumDtoRequest);
         if (response.errors() != null && !response.errors().isEmpty()) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(response.status())).body(response);
+            return ResponseEntity.badRequest().body(response);
         }
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("{albumId}")
+    public ResponseEntity<Void> deleteOne(@PathVariable Long albumId) {
+        albumService.deleteOne(albumId);
+        return ResponseEntity.noContent().build();
     }
 }

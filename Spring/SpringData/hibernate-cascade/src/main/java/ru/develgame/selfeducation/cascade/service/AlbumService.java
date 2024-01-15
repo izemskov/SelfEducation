@@ -12,4 +12,6 @@ public interface AlbumService {
     AlbumDtoResponse fetchOne(Long authorId, Long albumId);
 
     ValidatedResponseDto<AlbumDtoResponse> createOne(Long authorId, AlbumDtoRequest albumDtoRequest);
+
+    void deleteOne(Long id);
 }
