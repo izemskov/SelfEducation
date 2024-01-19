@@ -55,8 +55,29 @@ class AuthorServiceIT extends BasePostgresIT {
         }
     }
 
+    @AfterEach
+    public void cleanUp() {
+        authorRepository.deleteAll();
+    }
+
     @Test
     void testFetchAll() {
+        Author author = new Author();
+        author.setFirstName("test");
+        authorRepository.save(author);
+
+        Author author2 = new Author();
+        author2.setFirstName("test2");
+        authorRepository.save(author2);
+
+        List<AuthorDtoResponse> authorDtoResponses = authorService.fetchAll();
+        Assertions.assertEquals(2, authorDtoResponses.size());
+        Assertions.assertTrue(authorDtoResponses.stream().anyMatch(t -> t.firstName().equals("test")));
+        Assertions.assertTrue(authorDtoResponses.stream().anyMatch(t -> t.firstName().equals("test2")));
+    }
+
+    @Test
+    void testFetchAll2() {
         Author author = new Author();
         author.setFirstName("test");
         authorRepository.save(author);
