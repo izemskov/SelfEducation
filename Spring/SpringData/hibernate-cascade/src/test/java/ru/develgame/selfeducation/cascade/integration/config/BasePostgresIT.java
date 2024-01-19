@@ -32,9 +32,18 @@ public class BasePostgresIT {
         @Override
         public void initialize(ConfigurableApplicationContext configurableApplicationContext) {
             HashMap<String, Object> properties = new HashMap<>();
+
             properties.put("spring.datasource.username", postgresSqlContainer.getUsername());
             properties.put("spring.datasource.password", postgresSqlContainer.getPassword());
             properties.put("spring.datasource.url", postgresSqlContainer.getJdbcUrl());
+//            properties.put("spring.datasource.driverClassName", "org.postgresql.Driver");
+//
+//            properties.put("spring.jpa.database-platform", "org.hibernate.dialect.PostgreSQLDialect");
+//            properties.put("spring.jpa.show-sql", true);
+//            properties.put("spring.jpa.hibernate.ddl", "create");
+//
+//            properties.put("spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults", false);
+
             MapPropertySource propertySource = new MapPropertySource("postgresql-container", properties);
             ConfigurableEnvironment environment = configurableApplicationContext.getEnvironment();
             environment.getPropertySources().addFirst(propertySource);
