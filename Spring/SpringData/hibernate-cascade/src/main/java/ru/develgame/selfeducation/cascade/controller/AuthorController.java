@@ -36,6 +36,16 @@ public class AuthorController {
         return ResponseEntity.ok(responseDto);
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<ValidatedResponseDto<AuthorDtoResponse>> update(@PathVariable Long id,
+                                                                          @RequestBody AuthorDtoRequest authorDtoRequest) {
+        ValidatedResponseDto<AuthorDtoResponse> responseDto = authorService.update(id, authorDtoRequest);
+        if (responseDto.errors() != null && !responseDto.errors().isEmpty()) {
+            return ResponseEntity.badRequest().body(responseDto);
+        }
+        return ResponseEntity.ok(responseDto);
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<Void> deleteOne(@PathVariable Long id) {
         authorService.deleteOne(id);

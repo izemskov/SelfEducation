@@ -33,8 +33,7 @@ public class AuthorServiceImpl implements AuthorService {
                 .orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id %d not found", id))));
     }
 
-    @Override
-    public ValidatedResponseDto<AuthorDtoResponse> createOne(AuthorDtoRequest authorDtoRequest) {
+    private List<String> validateAuthor(AuthorDtoRequest authorDtoRequest) {
         List<String> errors = new ArrayList<>();
 
         if (authorDtoRequest.firstName() == null || authorDtoRequest.firstName().isBlank()) {
@@ -44,6 +43,13 @@ public class AuthorServiceImpl implements AuthorService {
         if (authorDtoRequest.secondName() == null || authorDtoRequest.secondName().isBlank()) {
             errors.add("Second name cannot be empty");
         }
+
+        return errors;
+    }
+
+    @Override
+    public ValidatedResponseDto<AuthorDtoResponse> createOne(AuthorDtoRequest authorDtoRequest) {
+        List<String> errors = validateAuthor(authorDtoRequest);
 
         if (!errors.isEmpty()) {
             return ValidatedResponseDto.<AuthorDtoResponse>builder()
@@ -55,6 +61,28 @@ public class AuthorServiceImpl implements AuthorService {
         author.setFirstName(authorDtoRequest.firstName());
         author.setSecondName(authorDtoRequest.secondName());
         author = authorRepository.save(author);
+
+        return ValidatedResponseDto.<AuthorDtoResponse>builder()
+                .data(authorMapper.toDto(author))
+                .build();
+    }
+
+    @Override
+    public ValidatedResponseDto<AuthorDtoResponse> update(Long id, AuthorDtoRequest authorDtoRequest) {
+        List<String> errors = validateAuthor(authorDtoRequest);
+
+        if (!errors.isEmpty()) {
+            return ValidatedResponseDto.<AuthorDtoResponse>builder()
+                    .errors(errors)
+                    .build();
+        }
+
+        Author author = authorRepository.findById(id)
+                .orElseThrow(() -> new AuthorNotFoundException(String.format("Author with id %d not found", id)));
+        author.setFirstName(authorDtoRequest.firstName());
+        author.setSecondName(authorDtoRequest.secondName());
+        author = authorRepository.save(author);
+
         return ValidatedResponseDto.<AuthorDtoResponse>builder()
                 .data(authorMapper.toDto(author))
                 .build();
