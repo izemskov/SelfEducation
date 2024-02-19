@@ -1,0 +1,10 @@
+<zk>
+    <client-config>
+        <debug-js>true</debug-js>
+    </client-config>
+    <config-name>client-app</config-name>
+    <session-config>
+        <session-timeout>300</session-timeout>
+        <timeout-uri>/timeout</timeout-uri>
+    </session-config>
+</zk>

@@ -1,0 +1,21 @@
+<zk>
+    <div style="margin: 20px;" apply="ru.develgame.springcors.client.composer.IndexComposer">
+        <vbox>
+            <label value="Client App" style="font-size:21pt"/>
+
+            <button id="getButton" label="Get request"/>
+
+            <label id="getResponseLabel" style="font-size:18pt"/>
+
+            <space orient="horizontal" bar="true" spacing="20px" />
+
+            <hbox>
+                <label value="Name" style="font-size:18pt"/>
+                <textbox id="nameTextBox"/>
+                <button id="postRequestButton" label="Post request"/>
+            </hbox>
+
+            <label id="postResponseLabel" style="font-size:18pt"/>
+        </vbox>
+    </div>
+</zk>
