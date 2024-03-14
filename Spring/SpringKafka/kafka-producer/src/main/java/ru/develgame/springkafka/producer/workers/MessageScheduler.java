@@ -22,6 +22,7 @@ public class MessageScheduler {
         OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
         MetricDto metricDto = new MetricDto(new Date(), (int) (osBean.getCpuLoad() * 100));
 
-        kafkaTemplate.send(TOPIC_NAME_METRICS, metricDto);
+        kafkaTemplate.send(TOPIC_NAME_METRICS, metricDto).whenComplete((stringMetricDtoSendResult, throwable) ->
+                System.out.println(stringMetricDtoSendResult.getRecordMetadata().offset()));
     }
 }
