@@ -15,6 +15,8 @@ public class KafkaTopicConfig {
     @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
 
+    public static final String TOPIC_NAME_METRICS = "metricsTopic";
+
     @Bean
     public KafkaAdmin kafkaAdmin() {
         Map<String, Object> configs = new HashMap<>();
@@ -23,7 +25,7 @@ public class KafkaTopicConfig {
     }
 
     @Bean
-    public NewTopic topic1() {
-        return new NewTopic("izemskov", 1, (short) 1);
+    public NewTopic metricTopic() {
+        return new NewTopic(TOPIC_NAME_METRICS, 1, (short) 1);
     }
 }
