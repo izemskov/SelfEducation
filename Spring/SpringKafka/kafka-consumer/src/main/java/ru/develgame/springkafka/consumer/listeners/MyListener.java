@@ -1,7 +1,7 @@
 package ru.develgame.springkafka.consumer.listeners;
 
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import ru.develgame.springkafka.consumer.dto.MetricDto;
 
@@ -14,7 +14,9 @@ public class MyListener {
     @KafkaListener(topics = "metricsTopic",
             containerFactory = "kafkaListenerContainerFactory",
             groupId = "groupId")
-    public void listenGroupId(@Payload MetricDto metricDto) {
-        System.out.println(dateFormat.format(metricDto.currentDate()) + " CPU usage: " + metricDto.cpuUsage());
+    public void listenGroupId(ConsumerRecord<String, MetricDto> record) {
+        System.out.println(record.offset()
+                + " " + dateFormat.format(record.value().currentDate())
+                + " CPU usage: " + record.value().cpuUsage());
     }
 }
