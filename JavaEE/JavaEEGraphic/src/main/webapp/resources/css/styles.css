@@ -1,0 +1,7 @@
+.location {
+    width: 400px;
+    height: 400px;
+    background-image: url(#{resource['images/bg1.png']});
+    background-repeat: no-repeat;
+    border: 1px solid red;
+}
